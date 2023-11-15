@@ -16,13 +16,14 @@ const getWorkouts = async (req, res) => {
 // get a single workout
 const getSingleWorkout = async (req, res) => {
   try {
+    // check valid id
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(404).json({ error: "No such workout found." });
+      return res.status(404).json({ error: "Workout could not be found." });
     }
     const workout = await Workout.findById(id);
     if (!workout) {
-      return res.status(404).json({ error: "No such workout found." });
+      return res.status(404).json({ error: "Workout could not be found." });
     }
     res.status(200).json(workout);
   } catch (error) {
@@ -43,11 +44,53 @@ const addWorkout = async (req, res) => {
   }
 };
 //  delete a workout
+const deleteWorkout = async (req, res) => {
+  try {
+    const { id } = req.params;
+    // check valid id
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: "Workout could not be found." });
+    }
+    const workout = await Workout.findOneAndDelete({ _id: id });
+    // check if id exists
+    if (!workout) {
+      return res.status(404).json({ error: "Workout could not be found." });
+    }
+    res.status(200).json(workout);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+};
 
 // update a workout
+
+const updateWorkout = async (req, res) => {
+  try {
+    const { id } = req.params;
+    // check valid id
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: "Workout could not be found." });
+    }
+    const workout = await Workout.findOneAndUpdate(
+      { _id: id },
+      { ...req.body }
+    );
+    // check if id exists
+    if (!workout) {
+      return res.status(404).json({ error: "Workout could not be found." });
+    }
+    res.status(200).json(workout);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+};
 
 module.exports = {
   addWorkout,
   getWorkouts,
   getSingleWorkout,
+  deleteWorkout,
+  updateWorkout,
 };
