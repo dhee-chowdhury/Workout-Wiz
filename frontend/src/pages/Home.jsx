@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import WorkoutCard from "../components/WorkoutCard";
 import WorkoutForm from "../components/WorkoutForm";
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
 const Home = () => {
-  const [workouts, setWorkouts] = useState([]);
+  // const [workouts, setWorkouts] = useState([]);
+
+  const { workouts, dispatch } = useWorkoutsContext();
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/workouts")
       .then((res) => {
-        setWorkouts(res.data);
+        // setWorkouts(res.data);
+        dispatch({ type: "SET_WORKOUTS", payload: res.data });
       })
       .catch((error) => {
         console.log(error);
@@ -19,9 +23,10 @@ const Home = () => {
   return (
     <div className="home">
       <div className="workouts">
-        {workouts.map((workout) => (
-          <WorkoutCard key={workout._id} workout={workout} />
-        ))}
+        {workouts &&
+          workouts.map((workout) => (
+            <WorkoutCard key={workout._id} workout={workout} />
+          ))}
       </div>
       <WorkoutForm></WorkoutForm>
     </div>

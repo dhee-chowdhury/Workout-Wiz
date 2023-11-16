@@ -1,7 +1,9 @@
 import axios from "axios";
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import { useState } from "react";
 
 const WorkoutForm = () => {
+  const { dispatch } = useWorkoutsContext();
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
@@ -18,6 +20,7 @@ const WorkoutForm = () => {
         console.log(res.data);
         setError("");
         form.reset();
+        dispatch({ type: "CREATE_WORKOUT", payload: res.data });
       })
       .catch((error) => {
         console.log(error);
