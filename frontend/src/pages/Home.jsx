@@ -19,7 +19,7 @@ const Home = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [dispatch]);
   return (
     <div className="home">
       <div className="workouts">

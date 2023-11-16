@@ -66,6 +66,8 @@ header a {
   padding: 6px;
   border-radius: 50%;
   color: #333;
+  width: 24px;
+  height: 24px;
 }
 
 /* new workout form */

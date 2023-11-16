@@ -40,7 +40,7 @@ const addWorkout = async (req, res) => {
     // checking if the fields are empty
     if (!title || !load || !reps) {
       return res.status(400).json({
-        error: "Send all required fields: title, load, reps",
+        error: "fill all the required fields: title, load, reps",
       });
     }
     const workout = await Workout.create({ title, load, reps });
