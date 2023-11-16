@@ -34,9 +34,15 @@ const getSingleWorkout = async (req, res) => {
 
 // create a new workout
 const addWorkout = async (req, res) => {
-  const { title, load, reps } = req.body;
   // add a new doc to db
   try {
+    const { title, load, reps } = req.body;
+    // checking if the fields are empty
+    if (!title || !load || !reps) {
+      return res.status(400).json({
+        error: "Send all required fields: title, load, reps",
+      });
+    }
     const workout = await Workout.create({ title, load, reps });
     res.status(201).json(workout);
   } catch (error) {
