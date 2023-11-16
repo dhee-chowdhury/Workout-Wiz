@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 
 const WorkoutForm = () => {
-  const [workout, setWorkout] = useState({});
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
@@ -16,7 +15,6 @@ const WorkoutForm = () => {
     axios
       .post("http://localhost:5000/api/workouts", newWorkout)
       .then((res) => {
-        setWorkout(res.data);
         console.log(res.data);
         setError("");
         form.reset();
