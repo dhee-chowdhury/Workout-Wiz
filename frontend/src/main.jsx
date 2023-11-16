@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Main from "./layout/Main.jsx";
 import { WorkoutsContextProvider } from "./context/WorkoutContext.jsx";
+import { AuthContextProvider } from "./context/AuthContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,8 +23,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <WorkoutsContextProvider>
-      <RouterProvider router={router}></RouterProvider>
-    </WorkoutsContextProvider>
+    <AuthContextProvider>
+      <WorkoutsContextProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </WorkoutsContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );
