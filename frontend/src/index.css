@@ -10,6 +10,7 @@ body {
   background: #fcf7ff;
   margin: 0;
   font-family: "Poppins";
+  box-sizing: border-box;
 }
 header {
   background: #fff;
@@ -84,6 +85,7 @@ input {
   border-radius: 4px;
   box-sizing: border-box;
 }
+
 form button {
   background: var(--primary);
   border: 0;
@@ -95,6 +97,7 @@ form button {
   font-weight: 600;
 }
 p.error {
+  bottom: 20px;
   padding: 10px;
   background: #ffefef;
   border: 1px solid var(--error);
@@ -116,6 +119,17 @@ nav a:nth-child(2) {
   padding: 6px 10px;
   color: #fff;
   background-color: var(--primary);
+}
+nav button {
+  margin-left: 16px;
+  background-color: #fff;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-family: "Poppins";
+  cursor: pointer;
+  font-size: 1em;
 }
 /* auth forms */
 form.signup,

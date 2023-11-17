@@ -7,8 +7,8 @@ const Signup = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
     await signup(email, password);
+    form.reset();
   };
   return (
     <form onSubmit={handleSubmit} className="signup">
