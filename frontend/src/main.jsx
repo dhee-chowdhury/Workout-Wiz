@@ -9,6 +9,8 @@ import { WorkoutsContextProvider } from "./context/WorkoutContext.jsx";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
+import PrivateRoute from "./routes/PrivateRoute.jsx";
+import IsLoggedIn from "./routes/IsLoggedIn.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,15 +19,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
-        element: <Login></Login>,
+        element: (
+          <IsLoggedIn>
+            <Login></Login>
+          </IsLoggedIn>
+        ),
       },
       {
         path: "/signup",
-        element: <Signup></Signup>,
+        element: (
+          <IsLoggedIn>
+            <Signup></Signup>
+          </IsLoggedIn>
+        ),
       },
     ],
   },

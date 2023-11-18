@@ -1,5 +1,9 @@
+import { Navigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
+import { useAuthContext } from "../hooks/useAuthContext";
+import Spinner from "../components/Spinner";
 const Login = () => {
+  const { user } = useAuthContext();
   const { login, isLoading, error } = useLogin();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -9,6 +13,8 @@ const Login = () => {
     await login(email, password);
     form.reset();
   };
+  if (isLoading) return <Spinner></Spinner>;
+  if (user) return <Navigate to="/"></Navigate>;
   return (
     <form onSubmit={handleSubmit} className="login">
       <h2>Login</h2>

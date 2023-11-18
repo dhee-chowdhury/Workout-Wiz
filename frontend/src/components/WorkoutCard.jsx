@@ -2,12 +2,26 @@
 import axios from "axios";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useState } from "react";
 
 const WorkoutCard = ({ workout }) => {
   const { dispatch } = useWorkoutsContext();
+  const { user } = useAuthContext();
+  const [error, setError] = useState("");
+
   const handleDelete = (id) => {
+    setError("");
+    if (!user) {
+      setError("You must be logged in to delete");
+      return;
+    }
     axios
-      .delete(`http://localhost:5000/api/workouts/${id}`)
+      .delete(`http://localhost:5000/api/workouts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         if (res.status === 200) {
           dispatch({ type: "DELETE_WORKOUT", payload: res.data });
@@ -47,6 +61,7 @@ const WorkoutCard = ({ workout }) => {
           />
         </svg>
       </span>
+      {error && <p className="error">{error}</p>}
     </div>
   );
 };

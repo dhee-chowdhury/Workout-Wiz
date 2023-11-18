@@ -1,3 +1,4 @@
+import Spinner from "../components/Spinner";
 import { useSignup } from "../hooks/useSignup";
 
 const Signup = () => {
@@ -10,6 +11,7 @@ const Signup = () => {
     await signup(email, password);
     form.reset();
   };
+  if (isLoading) return <Spinner></Spinner>;
   return (
     <form onSubmit={handleSubmit} className="signup">
       <h2>Sign up</h2>
