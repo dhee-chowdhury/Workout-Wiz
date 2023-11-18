@@ -11,7 +11,6 @@ const Signup = () => {
     await signup(email, password);
     form.reset();
   };
-  if (isLoading) return <Spinner></Spinner>;
   return (
     <form onSubmit={handleSubmit} className="signup">
       <h2>Sign up</h2>
@@ -23,6 +22,7 @@ const Signup = () => {
         Sign up
       </button>
       {error && <p className="error">{error}</p>}
+      {isLoading && <Spinner></Spinner>}
     </form>
   );
 };

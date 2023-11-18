@@ -11,9 +11,8 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     await login(email, password);
-    form.reset();
+    // form.password.reset();
   };
-  if (isLoading) return <Spinner></Spinner>;
   if (user) return <Navigate to="/"></Navigate>;
   return (
     <form onSubmit={handleSubmit} className="login">
@@ -26,6 +25,7 @@ const Login = () => {
         Login
       </button>
       {error && <p className="error">{error}</p>}
+      {isLoading && <Spinner></Spinner>}
     </form>
   );
 };
